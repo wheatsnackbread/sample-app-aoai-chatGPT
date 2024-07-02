@@ -709,10 +709,13 @@ const Chat = () => {
       try {
         const execResults = JSON.parse(message.content) as AzureSqlServerExecResults;
         const codeExecResult = execResults.all_exec_results.at(-1)?.code_exec_result;
+        console.log('execResults :', execResults);
+        console.log("codeExecResult: ", codeExecResult && atob(codeExecResult.toString()))
+        // codeExecResult && setChart(atob(codeExecResult.toString()))
         if (codeExecResult === undefined) {
           return null;
         }
-        return codeExecResult;
+        return codeExecResult.toString();
       }
       catch {
         return null;
@@ -784,7 +787,7 @@ const Chat = () => {
                           answer={{
                             answer: answer.content,
                             citations: parseCitationFromMessage(messages[index - 1]),
-                            plotly_data: parsePlotFromMessage(messages[index - 1]),
+                            generated_chart: parsePlotFromMessage(messages[index - 1]),
                             message_id: answer.id,
                             feedback: answer.feedback,
                             exec_results: execResults
@@ -811,7 +814,7 @@ const Chat = () => {
                         answer={{
                           answer: "Generating answer...",
                           citations: [],
-                          plotly_data: null
+                          generated_chart: null
                         }}
                         onCitationClicked={() => null}
                         onExectResultClicked={() => null}
