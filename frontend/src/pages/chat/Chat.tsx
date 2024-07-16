@@ -490,10 +490,10 @@ const Chat = () => {
             return
           }
           resultConversation = {
-            id: result.history_metadata.conversation_id,
-            title: result.history_metadata.title,
+            id: result.choices[0].history_metadata.conversation_id,
+            title: result.choices[0].history_metadata.title,
             messages: [userMessage],
-            date: result.history_metadata.date
+            date: result.choices[0].history_metadata.date
           }
           resultConversation.messages.push(errorChatMsg)
         }
