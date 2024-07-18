@@ -425,12 +425,13 @@ const Chat = () => {
             ? resultConversation.messages.push(assistantMessage)
             : resultConversation.messages.push(toolMessage, assistantMessage)
         } else {
+          // made the changes here
           resultConversation = {
-            id: result.history_metadata.conversation_id,
-            title: result.history_metadata.title,
+            id: result[0].history_metadata.conversation_id,
+            title: result[0].history_metadata.title,
             messages: [userMessage],
-            date: result.history_metadata.date
-          }
+            date: result[0].history_metadata.date
+          }  
           isEmpty(toolMessage)
             ? resultConversation.messages.push(assistantMessage)
             : resultConversation.messages.push(toolMessage, assistantMessage)
