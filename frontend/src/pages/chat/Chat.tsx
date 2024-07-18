@@ -374,6 +374,9 @@ const Chat = () => {
           if (done) break
 
           var text = new TextDecoder('utf-8').decode(value)
+
+          console.log('The returned text was ' + text)
+          
           const objects = text.split('\n')
           objects.forEach(obj => {
             try {
@@ -405,7 +408,8 @@ const Chat = () => {
                 console.error(e)
                 throw e
               } else {
-                console.log('Incomplete message. Continuing...')
+                console.log('Incomplete message. Continuing... with error printed below')
+                console.error(e)
               }
             }
           })
@@ -427,10 +431,10 @@ const Chat = () => {
         } else {
           // made the changes here
           resultConversation = {
-            id: result[0].history_metadata.conversation_id,
-            title: result[0].history_metadata.title,
+            id: result.choices[0].history_metadata.conversation_id,
+            title: result.choices[0].history_metadata.title,
             messages: [userMessage],
-            date: result[0].history_metadata.date
+            date: result.choices[0].history_metadata.date
           }  
           isEmpty(toolMessage)
             ? resultConversation.messages.push(assistantMessage)
